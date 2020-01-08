@@ -3,30 +3,39 @@ import  com.jasson.Cuenta;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 
 public class Procesos {
-    List<Cuenta> cliente;
+    ArrayList<clienteDTO> cliente;
+    int tamaño;
 
     public Procesos() {
         cliente = new ArrayList<>();
     }
 
+
     public void generarclientes(){
-        int tamaño, Ncuenta;
-        String titular;
-        double plata;
         Random aleatorio = new Random();
-        tamaño = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un tamaño pa la lista"));
-        for (int i=0; i<tamaño;i++){
-            Ncuenta = aleatorio.nextInt(75-25+1) + 25;
-            titular = JOptionPane.showInputDialog("Ingrese el nombre del titular");
-            plata = Double.parseDouble(JOptionPane.showInputDialog("Ingrese una cantidad de dinero optima:"));
-            Cuenta count = new Cuenta(Ncuenta,titular,plata);
-            cliente.add(count);
-        }
+        JOptionPane.showMessageDialog(null,"Vamos a crear una cuenta bancaria, por favor llene los siguientes datos");
+        Persona persona = new Persona();
+        Cuenta cuenta = new Cuenta();
+        persona.cedula = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de cedula"));
+        persona.Nombre = JOptionPane.showInputDialog("Ingrese su nombre");
+        persona.Apellidos = JOptionPane.showInputDialog("Ingrese su apellido");
+        persona.estado_civil = JOptionPane.showInputDialog("Ingrese su estado civil");
+        persona.edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad"));
+        cuenta.numerocuenta = aleatorio.nextInt(34575-25+1) + 89123425;
+        cuenta.saldo = 0;
+        clienteDTO dto = new clienteDTO();
+        dto.setCedula(persona.getCedula());
+        dto.setNombrecompleto(persona.getNombre(),persona.getApellidos());
+        dto.setCedula(persona.getCedula());
+        dto.setEstado(persona.getEstado_civil());
+        dto.setNumerocuenta(cuenta.getNumerocuenta());
+        cliente.add(dto);
     }
 
     public void elimianrcliente(Cuenta count){
@@ -35,18 +44,21 @@ public class Procesos {
                 " con el numero de cuenta " + count.getNumerocuenta() +"\n"+ " ha sido eliminado satisfactoriamente");
     }
 
-    public List<Cuenta> obtenerclientes(){
-        return cliente;
+    public void obtenerclientes(){
+        Iterator iter = cliente.iterator();
+        while (iter.hasNext()){
+
+        }
     }
 
-   public Cuenta consultarTitular(int ncuenta){
-       return cliente.get(ncuenta);
+   public clienteDTO consultarTitular(int ncuenta){
+        return cliente.get(ncuenta);
    }
 
-   public void actualizarcliente(Cuenta cuenta){
+   /*public void actualizarcliente(clienteDTO cuenta){
         cliente.get(cuenta.getNumerocuenta()).setTitular(cuenta.getTitular());
-        cliente.get(cuenta.getNumerocuenta()).setDinero(cuenta.getDinero());
+        cliente.get(cuenta.getNumerocuenta()).setSaldo(cuenta.getSaldo());
         JOptionPane.showMessageDialog(null, "El cliente con el Numero de cuenta " +cuenta.getNumerocuenta()+
                 " fue actualizado correctamente");
-   }
+   }*/
 }
